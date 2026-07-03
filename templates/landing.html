@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Geo University Student Portal{% endblock %}
+
+{% block content %}
+<!-- Hero / Intro Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Student Main Portal</h1>
+    <p class="hero-desc">
+      Geo University Student Portal registration, join us today for your online courses
+    </p>
+    <a href="{{ url_for('student_form') }}" class="btn btn-primary" id="cta-button">
+      Get Started
+    </a>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-image-wrapper">
+      <img src="{{ url_for('static', filename='student_portal_hero.png') }}" alt="Student Portal" class="hero-image" id="hero-img">
+    </div>
+  </div>
+</section>
+{% endblock %}

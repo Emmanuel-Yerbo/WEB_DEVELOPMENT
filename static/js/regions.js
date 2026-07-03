@@ -1,0 +1,363 @@
+const stateInfo = [
+  {
+    "state": "Greater Accra Region",
+    "local": [
+      "Accra Metropolitan",
+      "Tema Metropolitan",
+      "Ablekuma Central Municipal",
+      "Ablekuma North Municipal",
+      "Ablekuma West Municipal",
+      "Adenta Municipal",
+      "Ashaiman Municipal",
+      "Ayawaso Central Municipal",
+      "Ayawaso East Municipal",
+      "Ayawaso North Municipal",
+      "Ayawaso West Municipal",
+      "Ga Central Municipal",
+      "Ga East Municipal",
+      "Ga North Municipal",
+      "Ga South Municipal",
+      "Ga West Municipal",
+      "Korle Klottey Municipal",
+      "Kpone-Katamanso Municipal",
+      "Krowor Municipal",
+      "La Dade-Kotopon Municipal",
+      "La-Nkwantanang-Madina Municipal",
+      "Ledzokuku Municipal",
+      "Okaikwei North Municipal",
+      "Tema West Municipal",
+      "Weija-Gbawe Municipal",
+      "Ada East District",
+      "Ada West District",
+      "Ningo-Prampram District",
+      "Shai-Osudoku District"
+    ]
+  },
+  {
+    "state": "Ashanti Region",
+    "local": [
+      "Kumasi Metropolitan",
+      "Ahafo Ano North Municipal",
+      "Asante Akim Central Municipal",
+      "Asante Akim North Municipal",
+      "Asante Akim South Municipal",
+      "Asokore Mampong Municipal",
+      "Asokwa Municipal",
+      "Atwima Nwabiagya Municipal",
+      "Bekwai Municipal",
+      "Ejisu Municipal",
+      "Ejura/Sekyedumase Municipal",
+      "Juaben Municipal",
+      "Kwabre East Municipal",
+      "Kwadaso Municipal",
+      "Mampong Municipal",
+      "Obuasi Municipal",
+      "Offinso Municipal",
+      "Oforikrom Municipal",
+      "Old Tafo Municipal",
+      "Suame Municipal",
+      "Adansi Asokwa District",
+      "Adansi North District",
+      "Adansi South District",
+      "Afigya Kwabre North District",
+      "Afigya Kwabre South District",
+      "Ahafo Ano South-East District",
+      "Ahafo Ano South-West District",
+      "Akrofuom District",
+      "Amansie Central District",
+      "Amansie South District",
+      "Amansie West District",
+      "Atwima Kwanwoma District",
+      "Atwima Mponua District",
+      "Atwima Nwabiagya North District",
+      "Bosome Freho District",
+      "Bosomtwe District",
+      "Obuasi East District",
+      "Offinso North District",
+      "Sekyere Afram Plains District",
+      "Sekyere Central District",
+      "Sekyere East District",
+      "Sekyere Kumawu District",
+      "Sekyere South District"
+    ]
+  },
+  {
+    "state": "Eastern Region",
+    "local": [
+      "New Juaben South Municipal",
+      "New Juaben North Municipal",
+      "Nsawam Adoagyiri Municipal",
+      "Suhum Municipal",
+      "West Akim Municipal",
+      "East Akim Municipal",
+      "Birim Central Municipal",
+      "Kwahu West Municipal",
+      "Akuapem North Municipal",
+      "Yilo Krobo Municipal",
+      "Lower Manya Krobo Municipal",
+      "Abuakwa South Municipal",
+      "Abuakwa North Municipal",
+      "Akuapem South District",
+      "Asuogyaman District",
+      "Atiwa West District",
+      "Atiwa East District",
+      "Ayensuano District",
+      "Birim North District",
+      "Birim South District",
+      "Denkyembour District",
+      "Fanteakwa North District",
+      "Fanteakwa South District",
+      "Kwahu Afram Plains North District",
+      "Kwahu Afram Plains South District",
+      "Kwahu East District",
+      "Kwahu South District",
+      "Upper Manya Krobo District",
+      "Upper West Akim District",
+      "Achiase District",
+      "Asene Manso Akroso District",
+      "Okere District"
+    ]
+  },
+  {
+    "state": "Central Region",
+    "local": [
+      "Cape Coast Metropolitan",
+      "Efutu Municipal",
+      "Awutu Senya East Municipal",
+      "Agona West Municipal",
+      "Mfantseman Municipal",
+      "Upper Denkyira East Municipal",
+      "Komenda-Edina-Eguafo-Abirem Municipal",
+      "Assin Fosu Municipal",
+      "Abura-Asebu-Kwamankese District",
+      "Agona East District",
+      "Ajumako-Enyan-Essiam District",
+      "Asikuma-Odoben-Brakwa District",
+      "Assin North District",
+      "Assin South District",
+      "Awutu Senya West District",
+      "Gomoa West District",
+      "Gomoa East District",
+      "Gomoa Central District",
+      "Twifo-Ati-Morkwa District",
+      "Twifo-Hemang-Lower Denkyira District",
+      "Upper Denkyira West District",
+      "Ekumfi District"
+    ]
+  },
+  {
+    "state": "Western Region",
+    "local": [
+      "Sekondi-Takoradi Metropolitan",
+      "Effia Kwesimintim Municipal",
+      "Tarkwa-Nsuaem Municipal",
+      "Nzema East Municipal",
+      "Ahanta West Municipal",
+      "Jomoro Municipal",
+      "Prestea-Huni Valley Municipal",
+      "Wassa Amenfi East Municipal",
+      "Wassa Amenfi West Municipal",
+      "Ellembelle District",
+      "Mpohor District",
+      "Shama District",
+      "Wassa Amenfi Central District",
+      "Wassa East District"
+    ]
+  },
+  {
+    "state": "Volta Region",
+    "local": [
+      "Ho Municipal",
+      "Hohoe Municipal",
+      "Kpando Municipal",
+      "Keta Municipal",
+      "Ketu South Municipal",
+      "Ketu North Municipal",
+      "Adaklu District",
+      "Afadzato South District",
+      "Agotime Ziope District",
+      "Akatsi South District",
+      "Akatsi North District",
+      "Anloga District",
+      "Central Tongu District",
+      "North Tongu District",
+      "South Tongu District",
+      "South Dayi District",
+      "North Dayi District"
+    ]
+  },
+  {
+    "state": "Northern Region",
+    "local": [
+      "Tamale Metropolitan",
+      "Sagnarigu Municipal",
+      "Savelugu Municipal",
+      "Yendi Municipal",
+      "Gushegu Municipal",
+      "Nanumba North Municipal",
+      "Karaga District",
+      "Kpandai District",
+      "Kumbungu District",
+      "Mion District",
+      "Nanton District",
+      "Nanumba South District",
+      "Saboba District",
+      "Tatale Sanguli District",
+      "Tolon District",
+      "Zabzugu District"
+    ]
+  },
+  {
+    "state": "Savannah Region",
+    "local": [
+      "West Gonja Municipal",
+      "East Gonja Municipal",
+      "Bole District",
+      "Sawla-Tuna-Kalba District",
+      "Central Gonja District",
+      "North Gonja District",
+      "North East Gonja District"
+    ]
+  },
+  {
+    "state": "North East Region",
+    "local": [
+      "East Mamprusi Municipal",
+      "West Mamprusi Municipal",
+      "Bunkpurugu Nakpanduri District",
+      "Chereponi District",
+      "Mamprugu Moagduri District",
+      "Yunyoo-Nasuan District"
+    ]
+  },
+  {
+    "state": "Upper East Region",
+    "local": [
+      "Bolgatanga Municipal",
+      "Bawku Municipal",
+      "Kassena-Nankana Municipal",
+      "Builsa North Municipal",
+      "Bolgatanga East District",
+      "Bongo District",
+      "Bawku West District",
+      "Binduri District",
+      "Builsa South District",
+      "Garu District",
+      "Kassena-Nankana West District",
+      "Nabdam District",
+      "Pusiga District",
+      "Talensi District",
+      "Tempane District"
+    ]
+  },
+  {
+    "state": "Upper West Region",
+    "local": [
+      "Wa Municipal",
+      "Jirapa Municipal",
+      "Lawra Municipal",
+      "Nandom Municipal",
+      "Sissala East Municipal",
+      "Daffiama-Bussie-Issa District",
+      "Lambussie-Karni District",
+      "Nadowli-Kaleo District",
+      "Sissala West District",
+      "Wa East District",
+      "Wa West District"
+    ]
+  },
+  {
+    "state": "Oti Region",
+    "local": [
+      "Krachi East Municipal",
+      "Nkwanta South Municipal",
+      "Biakoye District",
+      "Jasikan District",
+      "Kadjebi District",
+      "Krachi West District",
+      "Krachi Nchumuru District",
+      "Nkwanta North District",
+      "Guan District"
+    ]
+  },
+  {
+    "state": "Ahafo Region",
+    "local": [
+      "Asunafo North Municipal",
+      "Tano North Municipal",
+      "Tano South Municipal",
+      "Asunafo South District",
+      "Asutifi North District",
+      "Asutifi South District"
+    ]
+  },
+  {
+    "state": "Bono Region",
+    "local": [
+      "Berekum East Municipal",
+      "Dormaa Central Municipal",
+      "Jaman South Municipal",
+      "Sunyani Municipal",
+      "Sunyani West Municipal",
+      "Wenchi Municipal",
+      "Banda District",
+      "Berekum West District",
+      "Dormaa East District",
+      "Dormaa West District",
+      "Jaman North District",
+      "Tain District"
+    ]
+  },
+  {
+    "state": "Bono East Region",
+    "local": [
+      "Atebubu-Amantin Municipal",
+      "Kintampo North Municipal",
+      "Nkoranza South Municipal",
+      "Techiman Municipal",
+      "Kintampo South District",
+      "Nkoranza North District",
+      "Pru East District",
+      "Pru West District",
+      "Sene East District",
+      "Sene West District",
+      "Techiman North District"
+    ]
+  },
+  {
+    "state": "Western North Region",
+    "local": [
+      "Aowin Municipal",
+      "Bibiani-Anhwiaso-Bekwai Municipal",
+      "Sefwi Wiawso Municipal",
+      "Bia East District",
+      "Bia West District",
+      "Bodi District",
+      "Juaboso District",
+      "Sefwi Akontombra District",
+      "Suaman District"
+    ]
+  }
+];
+
+document.addEventListener("DOMContentLoaded", function () {
+  const stateSelect = document.getElementById("state");
+  const lgaSelect = document.getElementById("lga");
+  if (!stateSelect || !lgaSelect) return;
+
+  // Fill the State dropdown
+  stateInfo.forEach((item) => {
+    stateSelect.add(new Option(item.state, item.state));
+  });
+
+  // Repopulate Local Government when a State is selected
+  stateSelect.addEventListener("change", function () {
+    // reset to just the placeholder (index 0)
+    lgaSelect.length = 1;
+    const selected = stateInfo.find((item) => item.state === this.value);
+    if (!selected) return;
+    selected.local.forEach((lga) => {
+      lgaSelect.add(new Option(lga, lga));
+    });
+  });
+});

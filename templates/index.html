@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Student Records{% endblock %}
+
+{% block content %}
+<!-- Info Banner -->
+<div class="info-banner">
+  <strong>Info!</strong> All students records table — {{ total_records }} record{{ 's' if total_records != 1 else '' }} found
+</div>
+
+<!-- Filter Bar — inline row -->
+<form method="GET" action="{{ url_for('students_index') }}" class="filter-bar">
+  <div class="form-group">
+    <input type="text" name="search" class="form-control" placeholder="Search Record By Name Only" value="{{ request.args.get('search', '') }}">
+  </div>
+  <div class="form-group">
+    <select name="status" class="form-control">
+      <option value="">Select-Admission-Status</option>
+      <option value="undecided" {% if request.args.get('status') == 'undecided' %}selected{% endif %}>undecided</option>
+      <option value="admitted" {% if request.args.get('status') == 'admitted' %}selected{% endif %}>admitted</option>
+      <option value="rejected" {% if request.args.get('status') == 'rejected' %}selected{% endif %}>rejected</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <select name="gender" class="form-control">
+      <option value="">Select-Gender</option>
+      <option value="Male" {% if request.args.get('gender') == 'Male' %}selected{% endif %}>Male</option>
+      <option value="Female" {% if request.args.get('gender') == 'Female' %}selected{% endif %}>Female</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <input type="number" name="jamb" class="form-control" placeholder="Enter WASSCE Score" min="6" max="54" value="{{ request.args.get('jamb', '') }}">
+  </div>
+  <button type="submit" class="btn btn-search" id="filter-submit">search</button>
+</form>
+
+<!-- Students Table -->
+<div class="table-wrapper">
+  <table class="custom-table" id="students-table">
+    <thead>
+      <tr>
+        <th>S/n</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>WASSCE Score</th>
+        <th>Admission Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if students %}
+        {% for student in students %}
+          <tr>
+            <td>{{ (page - 1) * 10 + loop.index }}</td>
+            <td>
+              {{ student.first_name }}
+              {% if student.middle_name %}{{ student.middle_name }} {% endif %}
+              {{ student.last_name }}
+            </td>
+            <td>{{ student.gender }}</td>
+            <td>{{ student.jamb_score }}</td>
+            <td>
+              <!-- #8 — Status badges instead of plain text -->
+              <span class="badge badge-{{ student.admission_status }}">
+                {{ student.admission_status }}
+              </span>
+            </td>
+            <td>
+              <a href="{{ url_for('student_details', student_id=student.id) }}" class="btn-view" title="View Details">
+                👁
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="6" style="padding: 30px; color: #999;">
+            No student records found.
+          </td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<!-- #3 — PAGINATION CONTROLS -->
+{% if total_pages > 1 %}
+<nav class="pagination" aria-label="Page navigation">
+  {# Previous button #}
+  {% if page > 1 %}
+    <a href="{{ url_for('students_index', page=page-1, search=request.args.get('search',''), status=request.args.get('status',''), gender=request.args.get('gender',''), jamb=request.args.get('jamb','')) }}">
+      &laquo; Prev
+    </a>
+  {% else %}
+    <span class="page-disabled">&laquo; Prev</span>
+  {% endif %}
+
+  {# Page numbers #}
+  {% for p in range(1, total_pages + 1) %}
+    {% if p == page %}
+      <span class="page-current">{{ p }}</span>
+    {% else %}
+      <a href="{{ url_for('students_index', page=p, search=request.args.get('search',''), status=request.args.get('status',''), gender=request.args.get('gender',''), jamb=request.args.get('jamb','')) }}">
+        {{ p }}
+      </a>
+    {% endif %}
+  {% endfor %}
+
+  {# Next button #}
+  {% if page < total_pages %}
+    <a href="{{ url_for('students_index', page=page+1, search=request.args.get('search',''), status=request.args.get('status',''), gender=request.args.get('gender',''), jamb=request.args.get('jamb','')) }}">
+      Next &raquo;
+    </a>
+  {% else %}
+    <span class="page-disabled">Next &raquo;</span>
+  {% endif %}
+</nav>
+<div class="pagination-info">
+  Page {{ page }} of {{ total_pages }}
+</div>
+{% endif %}
+{% endblock %}

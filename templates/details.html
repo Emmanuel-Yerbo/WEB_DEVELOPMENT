@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}{{ student.first_name }} {{ student.last_name }} - Details{% endblock %}
+
+{% block content %}
+<div class="details-container">
+
+  <!-- Left Sidebar: Coral card with photo + name + badge -->
+  <div class="profile-sidebar">
+    <div class="profile-avatar-card">
+      <div class="profile-avatar-wrapper">
+        <img src="{{ url_for('static', filename='uploads/' + student.image_filename) }}" alt="Student Photo" class="profile-avatar" id="student-avatar-img">
+      </div>
+      <div class="profile-name" id="profile-name">
+        {{ student.first_name }} {{ student.last_name }}
+      </div>
+      <span class="badge badge-{{ student.admission_status }}" id="status-badge">
+        {{ student.admission_status }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Right: Detail sections -->
+  <div class="profile-info">
+
+    <!-- Personal Information -->
+    <div class="detail-section">
+      <div class="detail-section-header">Personal Information</div>
+      <div class="detail-rows">
+        <div class="detail-row"><strong>Email:</strong> {{ student.email }}</div>
+        <div class="detail-row"><strong>Gender:</strong> {{ student.gender }}</div>
+        <div class="detail-row"><strong>Phone Number:</strong> {{ student.phone_number }}</div>
+        <div class="detail-row"><strong>Date Of Birth:</strong> {{ student.date_of_birth }}</div>
+        <div class="detail-row"><strong>Address:</strong> {{ student.address }}</div>
+      </div>
+    </div>
+
+    <!-- Other Information -->
+    <div class="detail-section">
+      <div class="detail-section-header">Other Information</div>
+      <div class="detail-rows" style="flex-direction: row; gap: 40px;">
+        <div class="detail-row"><strong>Region Of Origin:</strong> {{ student.state_of_origin }}</div>
+        <div class="detail-row"><strong>District / Municipality:</strong> {{ student.local_govt }}</div>
+      </div>
+    </div>
+
+    <!-- Academics Related Information -->
+    <div class="detail-section">
+      <div class="detail-section-header">Academics Related Information</div>
+      <div class="academics-inline">
+        <div class="detail-row"><strong>Next Of Kin:</strong> {{ student.next_of_kin }}</div>
+        <div class="detail-row"><strong>WASSCE Score:</strong> {{ student.jamb_score }}</div>
+        <div class="detail-row"><strong>Status:</strong> {{ student.admission_status }}</div>
+        <div class="status-change-control">
+          <label for="status-select">Change Status:</label>
+          <select id="status-select">
+            <option value="" disabled selected>Change-Status</option>
+            <option value="undecided" {% if student.admission_status == 'undecided' %}selected{% endif %}>undecided</option>
+            <option value="admitted" {% if student.admission_status == 'admitted' %}selected{% endif %}>admitted</option>
+            <option value="rejected" {% if student.admission_status == 'rejected' %}selected{% endif %}>rejected</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- #2 — DELETE BUTTON -->
+    <div class="detail-actions">
+      <a href="{{ url_for('students_index') }}" class="btn btn-secondary">← Back to Records</a>
+      <button type="button" class="btn btn-danger" id="delete-btn">Delete Student</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- #2 — DELETE CONFIRMATION MODAL -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal-box">
+    <h3>Delete Student Record</h3>
+    <p>Are you sure you want to permanently delete <strong>{{ student.first_name }} {{ student.last_name }}</strong>'s record? This action cannot be undone.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" id="cancel-delete-btn">Cancel</button>
+      <form method="POST" action="{{ url_for('delete_student', student_id=student.id) }}" style="margin:0;">
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Asynchronous status change via fetch API
+  document.getElementById('status-select').addEventListener('change', function() {
+    const newStatus = this.value;
+    const studentId = "{{ student.id }}";
+
+    fetch('/student/' + studentId + '/status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: newStatus })
+    })
+    .then(function(response) {
+      if (!response.ok) throw new Error('Failed to update status.');
+      return response.json();
+    })
+    .then(function(data) {
+      if (data.success) {
+        // Update badge dynamically
+        var badge = document.getElementById('status-badge');
+        badge.className = 'badge badge-' + newStatus;
+        badge.textContent = newStatus;
+
+        showToast('Status updated to: ' + newStatus);
+      }
+    })
+    .catch(function(error) {
+      showToast('Error: ' + error.message);
+    });
+  });
+
+  // #2 — Delete confirmation modal toggle
+  document.getElementById('delete-btn').addEventListener('click', function() {
+    document.getElementById('delete-modal').classList.add('show');
+  });
+
+  document.getElementById('cancel-delete-btn').addEventListener('click', function() {
+    document.getElementById('delete-modal').classList.remove('show');
+  });
+
+  // Close modal if clicking outside the box
+  document.getElementById('delete-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('show');
+    }
+  });
+
+  function showToast(message) {
+    var toast = document.getElementById('toast');
+    var toastMsg = document.getElementById('toast-message');
+    toastMsg.textContent = message;
+    toast.classList.add('show');
+    setTimeout(function() {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+</script>
+{% endblock %}

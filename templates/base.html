@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Student Portal{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- Top Navbar — Purple bar with Geo University brand -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="{{ url_for('landing') }}" class="brand-link" id="nav-brand">
+        Geo <span>University</span>
+      </a>
+
+      <!-- #12 — Hamburger toggle button (mobile only) -->
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li class="nav-item">
+          <a href="{{ url_for('landing') }}" id="nav-home"
+             class="{% if request.endpoint == 'landing' %}active{% endif %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('student_form') }}" id="nav-form"
+             class="{% if request.endpoint == 'student_form' %}active{% endif %}">Form</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('students_index') }}" id="nav-records"
+             class="{% if request.endpoint in ['students_index', 'student_details'] %}active{% endif %}">Get Started</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-wrapper">
+    <div class="container">
+
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                <span>{{ message }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+
+    </div>
+  </main>
+
+  <!-- Toast Notification for AJAX status updates -->
+  <div id="toast" class="toast-notification">
+    <span id="toast-message"></span>
+  </div>
+
+  <!-- Footer — Purple bar -->
+  <footer class="footer">
+    <p id="footer-text">All rights reserved @Geo University 2026</p>
+  </footer>
+
+  <!-- #12 — Hamburger menu toggle script -->
+  <script>
+    document.getElementById('hamburger-btn').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

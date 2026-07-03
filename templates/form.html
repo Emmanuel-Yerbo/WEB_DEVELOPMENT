@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Student Portal Form{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <h2 class="form-card-title">Student Portal Form</h2>
+  <p class="form-card-subtitle">Please fill in all required information</p>
+
+  <!-- Personal Information Section -->
+  <div class="section-bar">Personal Information</div>
+
+  <form action="{{ url_for('student_form') }}" method="POST" enctype="multipart/form-data">
+    <div class="form-grid">
+
+      <!-- Upload Image with Preview (#7) -->
+      <div class="form-group form-group-full">
+        <label for="image-upload">Upload Image:</label>
+        <input type="file" name="image" id="image-upload" class="form-control" accept="image/*" required>
+        <div class="image-preview-wrapper">
+          <img id="image-preview" src="#" alt="Preview">
+        </div>
+      </div>
+
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="first_name">FirstName</label>
+        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Enter FirstName"
+               value="{{ form_data.first_name if form_data else '' }}" required>
+      </div>
+
+      <!-- Middle Name -->
+      <div class="form-group">
+        <label for="middle_name">MiddleName</label>
+        <input type="text" id="middle_name" name="middle_name" class="form-control" placeholder="Enter MiddleName"
+               value="{{ form_data.middle_name if form_data else '' }}">
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="last_name">LastName</label>
+        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Enter LastName"
+               value="{{ form_data.last_name if form_data else '' }}" required>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email Address"
+               value="{{ form_data.email if form_data else '' }}" required>
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="form-group">
+        <label for="date_of_birth">Date Of Birth</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" class="form-control"
+               value="{{ form_data.date_of_birth if form_data else '' }}" required>
+      </div>
+
+      <!-- Gender — radio buttons inline -->
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <span>Male</span>
+            <input type="radio" name="gender" value="Male"
+                   {% if form_data and form_data.gender == 'Male' %}checked{% endif %} required>
+          </label>
+          <label class="radio-option">
+            <span>Female</span>
+            <input type="radio" name="gender" value="Female"
+                   {% if form_data and form_data.gender == 'Female' %}checked{% endif %}>
+          </label>
+        </div>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="form-group">
+        <label for="phone_number">Phone Number</label>
+        <input type="tel" id="phone_number" name="phone_number" class="form-control" placeholder="Enter PhoneNumber"
+               value="{{ form_data.phone_number if form_data else '' }}" required>
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" class="form-control" placeholder="Enter Address"
+               value="{{ form_data.address if form_data else '' }}" required>
+      </div>
+
+      <!-- Region of Origin -->
+      <div class="form-group">
+        <label for="state">Region Of Origin</label>
+        <select id="state" name="state" class="form-control" required>
+          <option value="" selected disabled>Select Region</option>
+        </select>
+      </div>
+
+      <!-- District / Municipality -->
+      <div class="form-group">
+        <label for="lga">District / Municipality</label>
+        <select id="lga" name="local-govt-area" class="form-control" required>
+          <option value="" selected disabled>Select District or Municipality</option>
+        </select>
+      </div>
+
+      <!-- Next of Kin -->
+      <div class="form-group form-group-full">
+        <label for="next_of_kin">Next Of Kin</label>
+        <input type="text" id="next_of_kin" name="next_of_kin" class="form-control" placeholder="Enter The Name OF NextOfKin"
+               value="{{ form_data.next_of_kin if form_data else '' }}" required style="max-width: 48%;">
+      </div>
+
+    </div>
+
+    <!-- Academics Related Information Section -->
+    <div class="section-bar">Academics Related Information</div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="jamb_score">WASSCE Aggregate</label>
+        <input type="number" id="jamb_score" name="jamb_score" class="form-control" placeholder="Enter WASSCE Aggregate"
+               value="{{ form_data.jamb_score if form_data else '' }}" min="6" max="54" required>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn-submit" id="submit-btn">Submit</button>
+
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Dynamic Region & District Loader -->
+<script src="{{ url_for('static', filename='js/regions.js') }}"></script>
+
+<!-- #1 — Re-select Region/District if form_data exists -->
+{% if form_data and form_data.state_of_origin %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var stateSelect = document.getElementById('state');
+    var lgaSelect = document.getElementById('lga');
+    var savedRegion = "{{ form_data.state_of_origin }}";
+    var savedDistrict = "{{ form_data.local_govt }}";
+
+    // Wait a tick for regions.js to populate options
+    setTimeout(function() {
+      stateSelect.value = savedRegion;
+      stateSelect.dispatchEvent(new Event('change'));
+
+      setTimeout(function() {
+        lgaSelect.value = savedDistrict;
+      }, 50);
+    }, 50);
+  });
+</script>
+{% endif %}
+
+<!-- #7 — Image preview before upload -->
+<script>
+  document.getElementById('image-upload').addEventListener('change', function(e) {
+    var preview = document.getElementById('image-preview');
+    var file = e.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        preview.src = ev.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      preview.style.display = 'none';
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+<!-- Place these two selects inside your Portal form. -->
+<!-- The loader (states.js) fills #state on page load and repopulates #lga on change. -->
+
+<!-- State Of Origin -->
+<label for="state">State Of Origin</label>
+<select id="state" name="state" class="form-control" required>
+  <option value="" selected disabled>Select State</option>
+</select>
+
+<!-- Local Government (populated dynamically based on selected state) -->
+<label for="lga">Local Government</label>
+<select id="lga" name="local-govt-area" class="form-control" required>
+  <option value="" selected disabled>Select Local Government</option>
+</select>
+
+<!-- Load the data + loader near the end of <body>, after the selects exist -->
+<script src="{{ url_for('static', filename='js/states.js') }}"></script>
