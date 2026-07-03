@@ -1,45 +1,22 @@
-# Geo University Student Portal
+# Web Development Repository
 
-A modern, light-themed web application for student registration and admission management, developed for **Geo University**.
+Welcome to my Web Development repository. This houses all of my web applications, portfolio projects, and custom tools.
 
-## Features
+## Projects
 
-- **Responsive Landing Page**: Clean portal introduction with modern illustrations.
-- **Student Registration Form**: Two-column responsive layout for entering student personal, geographical (Ghanaian Regions & Districts), and academic information (WASSCE scores). Includes live image preview.
-- **Form Data Persistence**: Form inputs are preserved on backend validation errors, so users don't have to re-enter data.
-- **Ghanaian Regional Selector**: Interactive dropdown populated with all 16 Ghanaian regions and their corresponding 261 districts/municipalities.
-- **Records List**: Table view displaying registered students, including status badges, inline searching, and filter options (by gender, status, and WASSCE aggregate score).
-- **Pagination**: Supports clean page navigation (10 records per page).
-- **Student Profile details**: Profile page showing complete student information with a custom status sidebar card.
-- **Asynchronous Status Updates**: Admissions officers can update student status (Admitted/Rejected/Undecided) inline via AJAX without page reloads.
-- **Delete Functionality**: Admins can safely delete student records along with their uploaded headshots via a confirmation modal.
+### 1. 🎓 [Student Portal](./Student%20Portal)
+A modern, responsive Student Portal registration and management web application built for **Geo University**.
+* **Status**: Completed / Submitted
+* **Tech Stack**: Python (Flask), PostgreSQL, HTML5, CSS3, JavaScript (ES6)
+* **Key Features**:
+  - Dynamic Ghanaian Region & District dropdown selectors.
+  - Active page navigation highlight, hover elevations, and fade-in animations.
+  - Form validation with data persistence.
+  - Directory search, filtering, and pagination.
+  - Inline AJAX status updates & modal confirmations for record deletion.
 
-## Tech Stack
+### 2. 💼 Portfolio (Coming Soon)
+Personal professional portfolio website.
 
-- **Backend**: Python 3.12+, Flask
-- **Database**: PostgreSQL (with automatic database & table schema creation on startup)
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla ES6)
-
-## Setup & Running Instructions
-
-1. **Clone & Navigate**:
-   ```bash
-   cd WEB_DEVELOPMENT
-   ```
-
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Configure Database**:
-   Create a `.env` file in the root directory (or modify the existing one) with your PostgreSQL connection URL:
-   ```ini
-   DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/student_portal
-   ```
-
-4. **Run Application**:
-   ```bash
-   python app.py
-   ```
-   Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
+### 3. 🌍 GeoResilience Hub (Coming Soon)
+Spatial mapping and environmental susceptibility tool hub.
