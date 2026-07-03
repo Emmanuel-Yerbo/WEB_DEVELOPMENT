@@ -43,6 +43,10 @@ def get_connection_params():
 def create_database_if_not_exists():
     """Connects to default postgres database and creates target database if not exists."""
     dbname, user, password, host, port = get_connection_params()
+    # Skip if host points to a remote/cloud database (e.g. not localhost)
+    if host and host not in ('localhost', '127.0.0.1'):
+        print("Cloud database detected; skipping auto-creation of database.")
+        return
     try:
         conn = psycopg2.connect(
             dbname='postgres',
@@ -136,7 +140,10 @@ def init_db():
         print(f"Error during students table initialization: {e}")
 
 # Run database initialization
-init_db()
+try:
+    init_db()
+except Exception as e:
+    print(f"Failed to initialize database on startup: {e}")
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
