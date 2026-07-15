@@ -853,6 +853,107 @@ button, input, select, textarea {
     color: #888899;
 }
 
+/* Contact Section */
+.contact {
+    padding: 7rem 1.5rem;
+    background-color: var(--white);
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.contact-info-panel h3,
+.contact-form h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.contact-info-panel p {
+    color: #555566;
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-detail-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+.contact-detail-icon {
+    font-size: 1.5rem;
+    background-color: var(--primary-light);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-detail-item h4 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.contact-detail-item p {
+    color: #666677;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+}
+
+.contact-form {
+    background-color: var(--light-color);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    resize: none;
+    outline: none;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.contact-form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(93, 62, 188, 0.1);
+}
+
 /* ==========================================================================
    Responsive Breakpoints & Media Queries
    ========================================================================== */
@@ -876,6 +977,11 @@ button, input, select, textarea {
     
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
     }
 }
 
@@ -942,6 +1048,15 @@ button, input, select, textarea {
     }
     
     .summary-modal {
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .contact-form {
         padding: 1.5rem;
     }
 }
