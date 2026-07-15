@@ -243,8 +243,8 @@ function validateEmail() {
 function validatePhone() {
     const value = phoneInput.value.trim();
     const parent = phoneInput.parentElement;
-    // Checks if phone number is exactly 11 digits
-    const phoneRegex = /^\d{11}$/;
+    // Checks if phone number is 10 or 11 digits (supports Ghana & Nigeria formats)
+    const phoneRegex = /^\d{10,11}$/;
     if (value === '' || !phoneRegex.test(value)) {
         parent.classList.remove('valid');
         parent.classList.add('invalid');
