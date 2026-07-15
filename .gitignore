@@ -18,3 +18,7 @@ static/uploads/*
 # IDEs
 .vscode/
 .idea/
+
+# Local task assets
+PAYMENT.pdf
+Project Files/
