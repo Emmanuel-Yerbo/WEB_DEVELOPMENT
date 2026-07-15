@@ -311,7 +311,7 @@ checkoutSubmitBtn.addEventListener('click', (e) => {
     
     // 4. Initialize Paystack Pop-up Modal (using Test Public Key)
     let handler = PaystackPop.setup({
-        key: 'pk_test_d300000000000000000000000000000000000000', // Test Key placeholder
+        key: 'pk_test_2cb74bdac4801c9b82a299316291e705a45ea10a', // Test Public Key
         email: customerInfo.email,
         amount: amountInKobo,
         currency: 'NGN',
