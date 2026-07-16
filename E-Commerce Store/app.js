@@ -314,7 +314,6 @@ checkoutSubmitBtn.addEventListener('click', (e) => {
         key: 'pk_test_2cb74bdac4801c9b82a299316291e705a45ea10a', // Test Public Key
         email: customerInfo.email,
         amount: amountInKobo,
-        currency: 'NGN',
         metadata: {
             custom_fields: [
                 {
