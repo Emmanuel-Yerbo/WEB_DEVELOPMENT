@@ -4,12 +4,12 @@
 
 // 1. Products Database
 const products = [
-    { id: 1, name: 'SAMSUNG TV', price: 650000, img: 'images/product1.png' },
-    { id: 2, name: 'PIXEL 4a', price: 250000, img: 'images/product2.png' },
-    { id: 3, name: 'PS 5', price: 550000, img: 'images/product3.png' },
-    { id: 4, name: 'MACBOOK AIR', price: 800000, img: 'images/product4.png' },
-    { id: 5, name: 'APPLE WATCH', price: 95000, img: 'images/product5.png' },
-    { id: 6, name: 'AIR PODS', price: 60000, img: 'images/product6.png' }
+    { id: 1, name: 'SAMSUNG TV', price: 4500, img: 'images/product1.png' },
+    { id: 2, name: 'PIXEL 4a', price: 1800, img: 'images/product2.png' },
+    { id: 3, name: 'PS 5', price: 6200, img: 'images/product3.png' },
+    { id: 4, name: 'MACBOOK AIR', price: 9500, img: 'images/product4.png' },
+    { id: 5, name: 'APPLE WATCH', price: 2200, img: 'images/product5.png' },
+    { id: 6, name: 'AIR PODS', price: 1200, img: 'images/product6.png' }
 ];
 
 // 2. State Management
@@ -83,9 +83,9 @@ cartCloseBtn.addEventListener('click', toggleCartModal);
 cartModalOverlay.addEventListener('click', toggleCartModal);
 continueShoppingBtn.addEventListener('click', toggleCartModal);
 
-// Helper to Format Currency as Naira
-function formatNaira(amount) {
-    return '₦' + amount.toLocaleString('en-US');
+// Helper to Format Currency as Ghana Cedis
+function formatCedi(amount) {
+    return 'GH₵ ' + amount.toLocaleString('en-US');
 }
 
 // ==========================================================================
@@ -104,7 +104,7 @@ function renderProducts() {
             </div>
             <div class="product-info">
                 <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">${formatNaira(product.price)}</p>
+                <p class="product-price">${formatCedi(product.price)}</p>
                 <button class="btn btn-shop ${inCart ? 'btn-remove-cart' : 'btn-add-cart'}" 
                         onclick="handleProductAction(${product.id}, this)">
                     ${inCart ? 'Remove from Cart' : 'Add to Cart'}
@@ -147,7 +147,7 @@ function updateCartUI() {
     
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = `<p class="empty-cart-msg" style="text-align: center; color: #888899; padding: 2rem 0;">Your cart is empty.</p>`;
-        cartTotalPriceEl.textContent = formatNaira(0);
+        cartTotalPriceEl.textContent = formatCedi(0);
         renderProducts(); // Refresh gallery buttons state
         return;
     }
@@ -168,7 +168,7 @@ function updateCartUI() {
             </div>
             <div class="cart-item-info">
                 <h4>${product.name}</h4>
-                <p class="item-price">${formatNaira(product.price)}</p>
+                <p class="item-price">${formatCedi(product.price)}</p>
             </div>
             <div class="cart-item-actions">
                 <div class="qty-control">
@@ -183,7 +183,7 @@ function updateCartUI() {
     });
     
     // Update total amount display
-    cartTotalPriceEl.textContent = formatNaira(totalSum);
+    cartTotalPriceEl.textContent = formatCedi(totalSum);
     
     // Re-render gallery buttons to keep sync
     renderProducts();
@@ -293,7 +293,7 @@ checkoutSubmitBtn.addEventListener('click', (e) => {
         return;
     }
     
-    // 3. Compute Total Amount in Kobo
+    // 3. Compute Total Amount in Pesewas
     let totalSum = 0;
     cart.forEach(item => {
         const product = products.find(p => p.id === item.id);
@@ -302,7 +302,7 @@ checkoutSubmitBtn.addEventListener('click', (e) => {
         }
     });
     
-    const amountInKobo = totalSum * 100;
+    const amountInPesewas = totalSum * 100;
     
     // Save customer details info
     customerInfo.name = nameInput.value.trim();
@@ -313,7 +313,7 @@ checkoutSubmitBtn.addEventListener('click', (e) => {
     let handler = PaystackPop.setup({
         key: 'pk_test_2cb74bdac4801c9b82a299316291e705a45ea10a', // Test Public Key
         email: customerInfo.email,
-        amount: amountInKobo,
+        amount: amountInPesewas,
         metadata: {
             custom_fields: [
                 {

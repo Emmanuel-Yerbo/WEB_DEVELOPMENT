@@ -14,7 +14,7 @@ A premium, responsive frontend e-commerce website designed for gadgets, featurin
   2. **Details Form**: Fields for Full Name, Email Address, and Phone Number.
   3. **Total Price**: Reflects the dynamic sum of all items multiplied by their individual quantities.
 * **Form Field Validation**: Custom JS validators trigger real-time color highlights (green for valid, red for invalid) and display error messages on field blur.
-* **Paystack Integration**: Integrates the Paystack Inline Checkout popup. Auto-converts the final Naira total to kobo.
+* **Paystack Integration**: Integrates the Paystack Inline Checkout popup. Auto-converts the final Ghana Cedi total to pesewas.
 * **Personalized Order Summary Receipt**: On payment success, a checkmark modal appears displaying a customized thank-you header and a summary table of items purchased.
 * **Page Reset**: Closing the summary clears all cart storage and reloads the page to a fresh state.
 
@@ -49,7 +49,7 @@ Since this is a client-side frontend project, you can run it directly:
 ## 💳 Testing the Paystack Checkout
 
 When checking out:
-1. Fill in the **Your Details** form inside the cart sidebar. Ensure the phone number contains exactly **11 digits** (e.g. `08012345678`).
+1. Fill in the **Your Details** form inside the cart sidebar. Ensure the phone number contains **10 or 11 digits** (e.g. `0553776346`).
 2. Click **Checkout**.
 3. The Paystack Checkout popup will overlay on the screen in **Test Mode**.
 4. You can simulate a successful transaction by selecting any of the mock options inside the Paystack window (e.g., Success).
